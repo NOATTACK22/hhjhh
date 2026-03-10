@@ -1,16 +1,23 @@
 name: Build APK
 on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4 # En güncel checkout sürümü
+
       - name: Build with Buildozer
-        uses: ArtemSerebrennkov/buildozer-action@v1
+        # Daha güvenilir ve güncel bir buildozer action kullanıyoruz
+        uses: Enki-K/buildozer-action@v1.2
         with:
           buildozer_version: master
+
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        # Hata aldığın v2 yerine en güncel v4 sürümünü kullanıyoruz
+        uses: actions/upload-artifact@v4
         with:
           name: Supreme-Terminal-V16
           path: bin/*.apk
+          if-no-files-found: error
