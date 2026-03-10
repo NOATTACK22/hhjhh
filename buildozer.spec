@@ -5,7 +5,7 @@ package.domain = org.noattack
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json
 version = 16.0
-requirements = python3,kivy==2.2.1,kivymd==1.1.1,PyGithub,requests,urllib3,certifi,charset-normalizer,idna
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,PyGithub,requests,urllib3,certifi,charset-normalizer,idna,openssl
 orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET, ACCESS_NETWORK_STATE
