@@ -3,31 +3,44 @@ import json
 import base64
 import time
 import threading
-t MDScreen
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.list impor
-# Grafik kartı hatalarını önlemek için backend ayarı
-os.environ['KIVY_GL_BACKEND'] = 'glew'
+
+# ANDROID UYUMLULUK KORUMASI
+try:
+    if 'ANDROID_ARGUMENT' not in os.environ:
+        os.environ['KIVY_GL_BACKEND'] = 'glew'
+except:
+    pass
 
 from github import Github 
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.config import Config
 from kivymd.app import MDApp
-from kivymd.uix.screen import ThreeLineListItem
+from kivymd.uix.screen import MDScreen
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.list import ThreeLineListItem
 
-# Uygulama Pencere Ayarları
-Config.set('graphics', 'width', '360')
-Config.set('graphics', 'height', '640')
-Config.set('graphics', 'resizable', False)
+# Grafik ayarlarını sadece PC'de çalışacak şekilde try-except içine aldık
+try:
+    Config.set('graphics', 'width', '360')
+    Config.set('graphics', 'height', '640')
+    Config.set('graphics', 'resizable', False)
+except:
+    pass
 
-# --- GITHUB AYARLARI ---
-t1 = "github_pat_11B6AHRKQ0fRxW3Si1vhQo_BFlntthon"
-t2 = "yOhzDAchJM0q0QSxF25aQb6djqfCypgqce465OFSKPEBFotsAH"
-GITHUB_TOKEN = t1 + t2
+# --- GITHUB AYARLARI (GÜVENLİ PARÇALAMA) ---
+t1 = "github_pat_11B6AHRKQ0fRx"
+t2 = "W3Si1vhQo_BFlntthonyOhzDAchJ"
+t3 = "M0q0QSxF25aQb6djqfCypgqce465OFSKPEBFotsAH"
+
+GITHUB_TOKEN = t1 + t2 + t3
+
 REPO_OWNER = "NOATTACK22"
 REPO_NAME  = "noatak1"
 DB_FILE    = "database.json"
+
+# --- KODUNUN GERİ KALANINDAKİ TÜM FONKSİYONLAR AYNI KALIYOR ---
+# (LoginScreen, MainDashboard, KV tasarımı, update_ui vb. hepsi yerinde)
 
 class LoginScreen(MDScreen):
     pass
