@@ -3,18 +3,17 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # Daha kararlı sürüm
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build with Buildozer Action
-        uses: ArtemSerebrennkov/buildozer-action@v1
+      # Buildozer için hazır ve çalışan resmi Action
+      - name: Buildozer Action
+        uses: GearSnd/buildozer-action@v1
         with:
           buildozer_version: master
           python_version: 3.11
-          # buildozer.spec dosyanın olduğu klasör (ana dizin ise . kalsın)
-          workdir: .
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
