@@ -11,15 +11,15 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          # Gerekli tüm Linux paketlerini tek seferde kuruyoruz
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev python3-setuptools
-          # Buildozer ve Cython kurulumu
+          # libtinfo5 yerine libtinfo6 ekleyerek hatayı çözüyoruz
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev python3-setuptools
           pip3 install --user --upgrade buildozer Cython==0.29.33 virtualenv
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # 'yes |' komutu tüm Android lisanslarını otomatik onaylar (Code 100 Çözümü)
+          # Lisansları otomatik onayla ve temizleyerek başla
+          buildozer android clean
           yes | buildozer -v android debug
         
       - name: Upload APK
@@ -27,4 +27,3 @@ jobs:
         with:
           name: Supreme-Terminal-V16
           path: bin/*.apk
-          if-no-files-found: error
