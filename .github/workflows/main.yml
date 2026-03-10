@@ -8,25 +8,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "date=$(date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_OUTPUT
-
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          # Gerekli tüm Linux paketlerini tek seferde kuruyoruz
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev python3-setuptools
+          # Buildozer ve Cython kurulumu
           pip3 install --user --upgrade buildozer Cython==0.29.33 virtualenv
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Buildozer'ı çalıştır
-          buildozer -v android debug
+          # 'yes |' komutu tüm Android lisanslarını otomatik onaylar (Code 100 Çözümü)
+          yes | buildozer -v android debug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Supreme-Terminal-V16
           path: bin/*.apk
+          if-no-files-found: error
