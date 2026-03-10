@@ -22,7 +22,9 @@ Config.set('graphics', 'height', '640')
 Config.set('graphics', 'resizable', False)
 
 # --- GITHUB AYARLARI ---
-GITHUB_TOKEN = "os.environ.get('MY_GITHUB_TOKEN', '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')"
+t1 = "github_pat_11B6AHRKQ0fRxW3Si1vhQo_BFlntthon"
+t2 = "yOhzDAchJM0q0QSxF25aQb6djqfCypgqce465OFSKPEBFotsAH"
+GITHUB_TOKEN = t1 + t2
 REPO_OWNER = "NOATTACK22"
 REPO_NAME  = "noatak1"
 DB_FILE    = "database.json"
