@@ -1,29 +1,17 @@
-name: Build APK
-on: [push, pull_request]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          # libtinfo5 yerine libtinfo6 ekleyerek hatayı çözüyoruz
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev python3-setuptools
-          pip3 install --user --upgrade buildozer Cython==0.29.33 virtualenv
-
-      - name: Build with Buildozer
-        run: |
-          export PATH=$PATH:$HOME/.local/bin
-          # Lisansları otomatik onayla ve temizleyerek başla
-          buildozer android clean
-          yes | buildozer -v android debug
-        
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Supreme-Terminal-V16
-          path: bin/*.apk
+[app]
+title = Supreme Terminal V16
+package.name = supremev16
+package.domain = org.noattack
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas,json
+version = 16.0
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,PyGithub,requests,urllib3,certifi,charset-normalizer,idna
+orientation = portrait
+fullscreen = 0
+android.permissions = INTERNET, ACCESS_NETWORK_STATE
+android.api = 33
+android.minapi = 21
+android.sdk = 33
+android.ndk = 25b
+android.archs = arm64-v8a, armeabi-v7a
+android.accept_sdk_license = True
